@@ -1,0 +1,64 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+rectangle ID管理 {
+    ' Actors
+    actor Admin
+    actor User
+
+    package サインインエクスペリエンス {
+    }
+
+    package サインアップエクスペリエンス {
+    }
+
+    package ユーザープール {
+        ' Actor's
+        actor UserPoolAdmin
+        Admin --> UserPoolAdmin
+
+        ' UseCase's of UserPool.
+        (ユーザープールを作成する) as (Create UserPool)
+        (ユーザープールを削除する) as (Delete UserPool)
+        (ユーザープール一覧を取得する) as (List UserPool)
+        (ユーザープールの詳細を取得する) as (Retrieve UserPool)
+
+        UserPoolAdmin --> (Create UserPool)
+        UserPoolAdmin --> (Delete UserPool)
+        UserPoolAdmin --> (List UserPool)
+        UserPoolAdmin --> (Retrieve UserPool)
+
+        package ユーザー {
+            ' Actor's
+            actor UserAdmin
+            Admin --> UserAdmin
+
+            ' UseCase's of users in UserPool.
+            (ユーザープールにユーザーを作成する) as (Create user in UserPool)
+            (ユーザープール内のユーザーリストを取得する) as (List user from UserPool)
+            (ユーザープール内のユーザー詳細を取得する) as (Retrieve user)
+            (ユーザープール内のユーザーを削除する) as (Delete user in UserPool)
+
+            ' ユーザープールにユーザーを作成する
+            UserAdmin --> (Create user in UserPool)
+            (Create user in UserPool) --|> (ユーザー作成時のオプション設定)
+
+            ' ユーザープール内のユーザー詳細を取得する
+            UserAdmin --> (Retrieve user)
+            (Retrieve user) --|> (ユーザーアクセスを無効化する)
+            (Retrieve user) --|> (ユーザーを強制サインアウトする)
+            (Retrieve user) --|> (ユーザーのパスワードをリセットする)
+            (Retrieve user) --|> (ユーザーを削除する)
+
+            (Retrieve user) --|> (ユーザー属性を編集する)
+
+            ' ユーザープールからユーザーを削除する
+            UserAdmin --> (Delete user in UserPool)
+
+            ' ユーザープールからユーザー一覧を取得する
+            UserAdmin --> (List user from UserPool)
+        }
+    }
+}
+@enduml
