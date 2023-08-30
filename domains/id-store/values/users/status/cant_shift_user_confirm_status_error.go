@@ -1,4 +1,4 @@
-package confirm_status
+package status
 
 import "errors"
 

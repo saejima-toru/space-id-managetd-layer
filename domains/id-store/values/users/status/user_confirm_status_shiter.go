@@ -1,4 +1,4 @@
-package confirm_status
+package status
 
 // ShitToUserConfirmed ユーザー確認済みステータスへ移行する
 func (s *UserConfirmStatus) ShitToUserConfirmed() (*UserConfirmStatus, error) {

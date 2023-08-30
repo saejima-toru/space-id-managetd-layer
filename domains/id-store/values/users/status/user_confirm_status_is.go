@@ -1,4 +1,4 @@
-package confirm_status
+package status
 
 // IsUserRegisteredConfirmStatus ユーザー未確認ステータス
 func (s *UserConfirmStatus) IsUserRegisteredConfirmStatus() bool {

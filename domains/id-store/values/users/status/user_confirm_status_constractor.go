@@ -1,4 +1,4 @@
-package confirm_status
+package status
 
 // NewRegisteredUserConfirmStatus ユーザー登録済みステータス
 func NewRegisteredUserConfirmStatus() *UserConfirmStatus {
