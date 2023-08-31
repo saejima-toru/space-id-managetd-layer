@@ -21,6 +21,14 @@ func NewUserAttributes(userAttributeRecords []UserAttributeRecord) (*UserAttribu
 	}, nil
 }
 
+// MargeUserAttribute ユーザー属性をマージする
+func (u *UserAttributes) MargeUserAttribute(
+	userAttr []UserAttributeRecord) (*UserAttributes, error) {
+	// TODO: ユーザー属性マージ処理
+
+	return nil, nil
+}
+
 // AddUserAttributeRecord ユーザー属性を追加する
 func (u *UserAttributes) AddUserAttributeRecord(
 	addAttrRecord UserAttributeRecord) (*UserAttributes, error) {
