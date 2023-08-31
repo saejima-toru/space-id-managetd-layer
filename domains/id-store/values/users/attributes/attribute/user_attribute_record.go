@@ -1,4 +1,4 @@
-package attributes
+package attribute
 
 import "errors"
 
@@ -34,6 +34,14 @@ func (a *UserAttributeRecord) UpdateUserAttributeValue(attrValue UserAttributeVa
 
 	a.userAttributeValue = &attrValue
 	return nil
+}
+
+func (a *UserAttributeRecord) AttributeValue() *UserAttributeValue {
+	return a.userAttributeValue
+}
+
+func (a *UserAttributeRecord) AttributeName() UserAttributeName {
+	return a.userAttributeName
 }
 
 func (a *UserAttributeRecord) EqualTo(record UserAttributeRecord) bool {

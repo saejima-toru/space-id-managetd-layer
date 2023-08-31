@@ -2,13 +2,14 @@ package attributes
 
 import (
 	"errors"
+	"identity-management/domains/id-store/values/users/attributes/attribute"
 )
 
 type UserAttributes struct {
-	userAttributeRecords []UserAttributeRecord
+	userAttributeRecords []attribute.UserAttributeRecord
 }
 
-func NewUserAttributes(userAttributeRecords []UserAttributeRecord) (*UserAttributes, error) {
+func NewUserAttributes(userAttributeRecords []attribute.UserAttributeRecord) (*UserAttributes, error) {
 	if len(userAttributeRecords) > 50 {
 		return nil, errors.New("ユーザー属性は、最大50個まで追加することができます。")
 	}
@@ -23,27 +24,26 @@ func NewUserAttributes(userAttributeRecords []UserAttributeRecord) (*UserAttribu
 
 // MargeUserAttribute ユーザー属性をマージする
 func (u *UserAttributes) MargeUserAttribute(
-	userAttr []UserAttributeRecord) (*UserAttributes, error) {
-	// TODO: ユーザー属性マージ処理
-
-	return nil, nil
+	userAttrs []attribute.UserAttributeRecord) (*UserAttributes, error) {
+	var err error
+	to := u.userAttributeRecords
+	for _, userAttr := range userAttrs {
+		if idx := u.indexOf(userAttr); idx != -1 {
+			err = to[idx].UpdateUserAttributeValue(*userAttr.AttributeValue())
+			continue
+		}
+		return nil, errors.New("設定できないユーザー属性が指定されました。")
+	}
+	if err == nil {
+		return NewUserAttributes(to)
+	}
+	return nil, err
 }
 
 // AddUserAttributeRecord ユーザー属性を追加する
 func (u *UserAttributes) AddUserAttributeRecord(
-	addAttrRecord UserAttributeRecord) (*UserAttributes, error) {
+	addAttrRecord attribute.UserAttributeRecord) (*UserAttributes, error) {
 
 	addedAttributes := append(u.userAttributeRecords, addAttrRecord)
 	return NewUserAttributes(addedAttributes)
-}
-
-// UpdateUserAttributeValue 指定したユーザー属性値を変更する
-func (u *UserAttributes) UpdateUserAttributeValue(
-	attrName UserAttributeName, attrValue UserAttributeValue) error {
-	targetAttrRecord := u.findByAttrName(attrName)
-
-	if targetAttrRecord != nil {
-		return targetAttrRecord.UpdateUserAttributeValue(attrValue)
-	}
-	return nil
 }

@@ -1,7 +1,7 @@
 package services
 
 import (
-	"identity-management/domains/id-store/models/users"
+	"identity-management/domains/id-store/models/userpools/users"
 )
 
 // UserRepository ユーザーリポジトリ

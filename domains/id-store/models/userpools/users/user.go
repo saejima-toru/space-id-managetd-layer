@@ -33,3 +33,27 @@ func NewUser(
 		updateAt:       updateAt,
 	}
 }
+
+func (u *User) UserId() users.UserId {
+	return u.userId
+}
+
+func (u *User) UserName() users.UserName {
+	return u.userName
+}
+
+func (u *User) UserStatus() status.UserConfirmStatus {
+	return u.userStatus
+}
+
+func (u *User) UserAttributes() attributes.UserAttributes {
+	return u.userAttributes
+}
+
+func (u *User) CreateAt() timestamp.TimeStamp {
+	return u.createAt
+}
+
+func (u *User) UpdateAt() timestamp.TimeStamp {
+	return u.updateAt
+}
