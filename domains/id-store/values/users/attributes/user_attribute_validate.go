@@ -30,15 +30,15 @@ func integer(v *int, defaults int) int {
 }
 
 func (a *UserAttributeValidate) setMaxBytes(maxBytes int) error {
-	if maxBytes < 1 || maxBytes > 2048 {
-		return errors.New("最大長の設定は、1〜2048バイト以下を指定する必要があります。")
+	if maxBytes < 0 || maxBytes > 2048 {
+		return errors.New("最大長の設定は、0〜2048バイト以下を指定する必要があります。")
 	}
 	a.maxBytes = maxBytes
 	return nil
 }
 func (a *UserAttributeValidate) setMinBytes(minBytes int) error {
-	if minBytes < 1 || minBytes > 2048 {
-		return errors.New("最小長の設定は、1〜2048バイト以下を指定する必要があります。")
+	if minBytes < 0 || minBytes > 2048 {
+		return errors.New("最小長の設定は、0〜2048バイト以下を指定する必要があります。")
 	}
 	a.minBytes = minBytes
 	return nil
