@@ -37,7 +37,7 @@ func (u *Space) SpaceId() spaces.SpaceId {
 	return u.spaceId
 }
 
-func (u *Space) SpaceName() spaces.NameSpace {
+func (u *Space) NameSpace() spaces.NameSpace {
 	return u.spaceName
 }
 

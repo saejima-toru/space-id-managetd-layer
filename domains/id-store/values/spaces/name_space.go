@@ -9,7 +9,7 @@ type NameSpace struct {
 	nameSpace string
 }
 
-func NewUserPoolName(nameSpace string) (*NameSpace, error) {
+func NewNameSpace(nameSpace string) (*NameSpace, error) {
 	if len(nameSpace) < 1 || len(nameSpace) > 128 {
 		return nil, errors.New("ネームスペースは、1〜128文字である必要があります。")
 	}

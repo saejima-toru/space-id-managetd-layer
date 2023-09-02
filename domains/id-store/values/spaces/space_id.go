@@ -6,9 +6,9 @@ type SpaceId struct {
 	userPoolId string
 }
 
-func NewUserPoolId(userPoolId string) (*SpaceId, error) {
+func NewSpaceId(userPoolId string) (*SpaceId, error) {
 	if len(userPoolId) < 1 {
-		return nil, errors.New("ユーザープールIDの指定は、必須です。")
+		return nil, errors.New("スペース IDの指定は、必須です。")
 	}
 
 	return &SpaceId{
@@ -16,7 +16,7 @@ func NewUserPoolId(userPoolId string) (*SpaceId, error) {
 	}, nil
 }
 
-// EqualTo 同一ユーザープールIDであるかを比較する
+// EqualTo 同一スペースIDであるかを比較する
 func (u *SpaceId) EqualTo(compareUserPoolId SpaceId) bool {
 	return u.String() == compareUserPoolId.String()
 }
