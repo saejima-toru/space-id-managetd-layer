@@ -6,6 +6,6 @@ import (
 
 // UserParameter ユーザーパラメーター
 type UserParameter struct {
-	userName      *users.UserName         // ユーザ名
-	userAttribute *UserAttributeParameter // ユーザー属性値
+	userName      users.UserName         // ユーザ名
+	userAttribute UserAttributeParameter // ユーザー属性値
 }

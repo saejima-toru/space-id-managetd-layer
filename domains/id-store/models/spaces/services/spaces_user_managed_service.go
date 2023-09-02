@@ -1,12 +1,12 @@
 package services
 
 import (
-	"identity-management/domains/id-store/models/userpools/users/services/parameters"
+	"identity-management/domains/id-store/models/spaces/services/parameters"
 	"identity-management/domains/id-store/values/users"
 )
 
-// UserService ユーザーサービス
-type UserService interface {
+// SpacesUserManagedService スペースユーザー管理サービス
+type SpacesUserManagedService interface {
 
 	// DisabledAccessUser ユーザーのアクセス無効化
 	DisabledAccessUser(userId users.UserId) error
