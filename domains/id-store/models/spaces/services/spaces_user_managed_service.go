@@ -5,6 +5,10 @@ import (
 	"identity-management/domains/id-store/values/users"
 )
 
+/*
+スペース内ユーザー管理サービス
+*/
+
 // SpacesUserManagedService スペースユーザー管理サービス
 type SpacesUserManagedService interface {
 

@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor 管理者 as Administrator
+actor ユーザー as EndUser
+
+
+package Spaces {
+    ' ユースケース
+    (スペースを構成する)
+    (スペース一覧を取得する)
+    (スペースを削除する)
+
+    Administrator --> (スペースを構成する)
+
+    package User {
+        (ユーザーをスペースに作成する)
+
+        Administrator --> (ユーザーをスペースに作成する)
+        EndUser --> (ユーザー登録をする)
+    }
+}
+@enduml
