@@ -13,9 +13,6 @@ import (
 // SpacesManagesManagedService スペース管理サービス
 type SpacesManagesManagedService interface {
 
-	// ListSpaces ユーザープールリストを取得する
-	ListSpaces() (spaces.Spaces, error)
-
 	// CreateSpaces ユーザープールを作成する
 	CreateSpaces(param parameters.SpacesParameter) error
 
