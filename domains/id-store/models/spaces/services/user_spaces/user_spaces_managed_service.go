@@ -12,16 +12,9 @@ type UserSpacesManagedService struct {
 	spacesRepository services.SpacesRepository
 }
 
-// ListSpaces ユーザースペースのリスト取得
-func (u *UserSpacesManagedService) ListSpaces() (spaces.Spaces, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
 // CreateSpaces ユーザースペースの作成
 func (u *UserSpacesManagedService) CreateSpaces(param parameters.SpacesParameter) error {
 	createSpaceFactory := spaces.NewCreateUserSpacesFactory()
-
 	newUserSpace, factoryErr := createSpaceFactory.CreateNewSpace(param)
 	if factoryErr != nil {
 		return factoryErr
@@ -35,14 +28,29 @@ func (u *UserSpacesManagedService) CreateSpaces(param parameters.SpacesParameter
 
 // DeleteSpace ユーザースペースの削除
 func (u *UserSpacesManagedService) DeleteSpace(spaceId spaceValue.SpaceId) error {
-	//TODO implement me
-	panic("implement me")
+	fetchSpaceBuilder := parameters.NewFetchSpaceParameterBuilder()
+	fetchSpaceBuilder.SpaceId(spaceId.String())
+
+	deleteSpace := u.spacesRepository.FetchSpaces(fetchSpaceBuilder.Build())
+	if deleteSpace == nil {
+		return errors.New("削除するスペースが存在しないため、スペースの削除を中断します。")
+	}
+
+	return u.spacesRepository.DeleteSpace(deleteSpace)
 }
 
 // ExistsSpace 既存にユーザースペースが存在しないかを確認する
-func (u *UserSpacesManagedService) ExistsSpace(findSpace spaces.Spaces) bool {
-	// TODO: 検索取得パラメーターを生成する
-	fetchSpaceParams := &parameters.FetchSpacesParameter{}
+func (u *UserSpacesManagedService) ExistsSpace(findSpaces spaces.Spaces) bool {
+	var isSpace bool
+	var findSpace spaces.Space
+	fetchSpaceBuilder := parameters.NewFetchSpaceParameterBuilder()
 
-	return u.spacesRepository.FetchSpaces(*fetchSpaceParams) != nil
+	findSpace, isSpace = findSpaces.(spaces.Space)
+	if isSpace == false {
+		return false
+	}
+	findSpaceName := findSpace.NameSpace()
+	fetchSpaceBuilder.NameSpace(findSpaceName.String())
+
+	return u.spacesRepository.FetchSpaces(fetchSpaceBuilder.Build()) != nil
 }
