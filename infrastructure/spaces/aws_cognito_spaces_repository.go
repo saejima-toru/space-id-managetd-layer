@@ -8,11 +8,13 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider"
 	"identity-management/domains/id-store/models/spaces"
 	"identity-management/domains/id-store/models/spaces/services/parameters"
+	"identity-management/infrastructure/spaces/presentation"
 )
 
 // AwsCognitoSpacesRepository AWS Cognitoを使用したスペースリポジトリ具象
 type AwsCognitoSpacesRepository struct {
-	client *cognitoidentityprovider.Client
+	client             *cognitoidentityprovider.Client
+	spacesPresentation presentation.SpacesRepositoryPresentation
 }
 
 func NewAwsCognitoSpacesRepository() *AwsCognitoSpacesRepository {
@@ -39,18 +41,34 @@ func (a *AwsCognitoSpacesRepository) CreateSpaces(createSpace spaces.Spaces) err
 		PoolName: aws.String(nameSpace.String()),
 	}
 
-	if _, createUserPoolErr := a.client.CreateUserPool(context.TODO(), createUserPoolInput); createUserPoolErr != nil {
-		return createUserPoolErr
-	}
-	return nil
+	_, createUserPoolErr := a.client.CreateUserPool(context.TODO(), createUserPoolInput)
+	return createUserPoolErr
 }
 
+// DeleteSpace スペースの削除
 func (a *AwsCognitoSpacesRepository) DeleteSpace(deleteSpace spaces.Spaces) error {
-	//TODO implement me
-	panic("implement me")
+	castSpace, isSpace := deleteSpace.(spaces.Space)
+	if !isSpace {
+		return errors.New("スペースの削除に失敗しました。")
+	}
+
+	deleteSpaceId := castSpace.SpaceId()
+	deleteUserPoolInput := &cognitoidentityprovider.DeleteUserPoolInput{
+		UserPoolId: aws.String(deleteSpaceId.String()),
+	}
+
+	_, deleteErr := a.client.DeleteUserPool(context.TODO(), deleteUserPoolInput)
+	return deleteErr
 }
 
-func (a *AwsCognitoSpacesRepository) FetchSpaces(parameter parameters.FetchSpacesParameter) spaces.Spaces {
-	//TODO implement me
-	panic("implement me")
+// FetchSpaces スペース情報を取得する
+func (a *AwsCognitoSpacesRepository) FetchSpaces(
+	parameter parameters.FetchSpacesParameter) spaces.Spaces {
+	userPoolId := parameter.SpaceId()
+
+	describeUserPoolInput := &cognitoidentityprovider.DescribeUserPoolInput{
+		UserPoolId: aws.String(userPoolId.String()),
+	}
+	userPoolOutput, _ := a.client.DescribeUserPool(context.TODO(), describeUserPoolInput)
+	return a.spacesPresentation.Presentation(userPoolOutput)
 }

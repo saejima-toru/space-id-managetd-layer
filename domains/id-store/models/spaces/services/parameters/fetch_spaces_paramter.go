@@ -11,6 +11,14 @@ type FetchSpacesParameter struct {
 	nameSpace *spaces.NameSpace // スペース名
 }
 
+func (f *FetchSpacesParameter) SpaceId() *spaces.SpaceId {
+	return f.spaceId
+}
+
+func (f *FetchSpacesParameter) NameSpace() *spaces.NameSpace {
+	return f.nameSpace
+}
+
 // FetchSpaceParameterBuilder フェッチスペースパラメータービルダー
 type FetchSpaceParameterBuilder struct {
 	fetchSpacesParameter *FetchSpacesParameter
