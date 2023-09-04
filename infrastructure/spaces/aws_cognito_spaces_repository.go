@@ -17,7 +17,8 @@ type AwsCognitoSpacesRepository struct {
 	spacesPresentation presentation.SpacesRepositoryPresentation
 }
 
-func NewAwsCognitoSpacesRepository() *AwsCognitoSpacesRepository {
+func NewAwsCognitoSpacesRepository(
+	spacesPresentation presentation.SpacesRepositoryPresentation) *AwsCognitoSpacesRepository {
 	cgf, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		println("Init -> NewAwsCognitoSpacesRepository: ", err.Error())
@@ -25,7 +26,8 @@ func NewAwsCognitoSpacesRepository() *AwsCognitoSpacesRepository {
 
 	client := cognitoidentityprovider.NewFromConfig(cgf)
 	return &AwsCognitoSpacesRepository{
-		client: client,
+		client:             client,
+		spacesPresentation: spacesPresentation,
 	}
 }
 
