@@ -17,8 +17,9 @@ type AwsCognitoSpacesRepository struct {
 	spacesPresentation presentation.SpacesRepositoryPresentation
 }
 
+// NewAwsCognitoSpacesRepository AWS Cognitoを使用したスペースリポジトリ構造体を生成
 func NewAwsCognitoSpacesRepository(
-	spacesPresentation presentation.SpacesRepositoryPresentation) *AwsCognitoSpacesRepository {
+	presentation presentation.SpacesRepositoryPresentation) *AwsCognitoSpacesRepository {
 	cgf, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		println("Init -> NewAwsCognitoSpacesRepository: ", err.Error())
@@ -27,7 +28,7 @@ func NewAwsCognitoSpacesRepository(
 	client := cognitoidentityprovider.NewFromConfig(cgf)
 	return &AwsCognitoSpacesRepository{
 		client:             client,
-		spacesPresentation: spacesPresentation,
+		spacesPresentation: presentation,
 	}
 }
 

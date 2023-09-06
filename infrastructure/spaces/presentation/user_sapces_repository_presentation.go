@@ -10,6 +10,10 @@ import (
 // UserSpacesRepositoryPresentation ユーザースペースリポジトリプレゼンター
 type UserSpacesRepositoryPresentation struct{}
 
+func NewUserSpacesRepositoryPresentation() *UserSpacesRepositoryPresentation {
+	return &UserSpacesRepositoryPresentation{}
+}
+
 // Presentation ユーザースペースへ変換する
 func (u *UserSpacesRepositoryPresentation) Presentation(
 	output *cognitoidentityprovider.DescribeUserPoolOutput) spaces.Spaces {

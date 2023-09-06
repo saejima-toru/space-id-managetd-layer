@@ -10,8 +10,8 @@ import (
 ユーザープール管理サービス
 */
 
-// SpacesManagesManagedService スペース管理サービス
-type SpacesManagesManagedService interface {
+// SpacesManagedService スペース管理サービス
+type SpacesManagedService interface {
 
 	// CreateSpaces ユーザープールを作成する
 	CreateSpaces(param parameters.SpacesParameter) error
