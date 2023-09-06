@@ -12,6 +12,14 @@ type UserSpacesManagedService struct {
 	spacesRepository services.SpacesRepository
 }
 
+func NewUserSpacesManagedService(
+	spacesRepository services.SpacesRepository) *UserSpacesManagedService {
+
+	return &UserSpacesManagedService{
+		spacesRepository: spacesRepository,
+	}
+}
+
 // CreateSpaces ユーザースペースの作成
 func (u *UserSpacesManagedService) CreateSpaces(param parameters.SpacesParameter) error {
 	createSpaceFactory := spaces.NewCreateUserSpacesFactory()
