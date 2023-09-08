@@ -11,6 +11,10 @@ func NewUserAttributeValue(userAttributeValue string) *UserAttributeValue {
 	}
 }
 
+func (a *UserAttributeValue) EqualTo(userAttributeValue UserAttributeValue) bool {
+	return a.userAttributeValue == userAttributeValue.String()
+}
+
 func (a *UserAttributeValue) String() string {
 	return a.userAttributeValue
 }
