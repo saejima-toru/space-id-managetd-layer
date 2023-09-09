@@ -11,6 +11,11 @@ import (
 
 type CreateUserFactory struct{}
 
+func NewCreateUserFactory() *CreateUserFactory {
+
+	return &CreateUserFactory{}
+}
+
 // CreateUser 新規ユーザーの作成を実行する
 func (c *CreateUserFactory) CreateUser(params parameters.UserParams) (*User, error) {
 	now := timestamp.NewTimeStamp()

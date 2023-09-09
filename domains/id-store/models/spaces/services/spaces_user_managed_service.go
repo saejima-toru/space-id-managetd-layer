@@ -1,8 +1,10 @@
 package services
 
 import (
-	"identity-management/domains/id-store/models/spaces/services/parameters"
-	"identity-management/domains/id-store/values/users"
+	"identity-management/domains/id-store/models/spaces/users"
+	"identity-management/domains/id-store/models/spaces/users/parameters"
+	"identity-management/domains/id-store/values/spaces"
+	valueUser "identity-management/domains/id-store/values/users"
 )
 
 /*
@@ -12,12 +14,18 @@ import (
 // SpacesUserManagedService スペースユーザー管理サービス
 type SpacesUserManagedService interface {
 
+	// CreateAuthenticateUser 認証ユーザーの作成
+	CreateAuthenticateUser(params parameters.UserParams) error
+
+	// DeleteUser ユーザーの削除
+	DeleteUser(deleteUserId valueUser.UserId, spacesId spaces.SpaceId) error
+
 	// DisabledAccessUser ユーザーのアクセス無効化
-	DisabledAccessUser(userId users.UserId) error
+	DisabledAccessUser(userId valueUser.UserId, id spaces.SpaceId) error
 
 	// EnabledAccessUser ユーザーのアクセス有効化
-	EnabledAccessUser(userId users.UserId) error
+	EnabledAccessUser(userId valueUser.UserId, id spaces.SpaceId) error
 
-	// UpdateUser ユーザー情報のアップデート
-	UpdateUser(userId users.UserId, userParameter parameters.UserParameter) error
+	// ExistsUser ユーザーの存在を確認する
+	ExistsUser(existsCheckUser users.User, id spaces.SpaceId) bool
 }
